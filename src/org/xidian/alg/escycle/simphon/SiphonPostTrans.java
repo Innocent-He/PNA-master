@@ -14,12 +14,13 @@ import java.util.*;
  * @date 2020/5/7 13:27
  */
 public class SiphonPostTrans {
-
+    /**
+     * 存放所有的信标
+     */
+    public static ArrayList<ArrayList<Integer>> siphons;
 
     public static Map<Integer, List<Integer>> getSiphonPostTrans() {
-        Logger myLog = Logger.getLogger("myLog");
-        ArrayList<ArrayList<Integer>> siphons = FindSimphon.Simphon();
-        myLog.info("所有的极小信标:\n" + siphons);
+        siphons = FindSimphon.Simphon();
         Map<Integer, List<Integer>> siphonPostTrans = new HashMap<>();
 
         for (int i = 0; i < siphons.size(); i++) {

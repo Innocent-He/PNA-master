@@ -13,7 +13,6 @@ import java.util.List;
  */
 public class FindSimphon {
     public static ArrayList<ArrayList<Integer>> Simphon() {
-        // 使用ArrayList来存储每行读取到的字符串
         int si;
         MyCombine combine = new MyCombine();
 
@@ -21,7 +20,10 @@ public class FindSimphon {
          * 存放的是每个库所的前置变迁
          */
         ArrayList<ArrayList<Integer>> Post = new ArrayList<>();
-        //存放的是每个库所的后置变迁
+
+        /**
+         * 存放的是每个库所的后置变迁
+         */
         ArrayList<ArrayList<Integer>> Pre = new ArrayList<>();
         ArrayList<Integer> lisEndPost = new ArrayList<>();
         ArrayList<Integer> lisEndPre = new ArrayList<>();
@@ -68,23 +70,22 @@ public class FindSimphon {
             int m = combine.getSize();
             for (int m1 = 0; m1 < m; m1++) {
                 String[] s = lis.get(m1).split(" ");
-                        /*
-                        r存放的是nn组合的单个n组合，一个组合有n个元素
-                         */
+                /*
+                r存放的是nn组合的单个n组合，一个组合有n个元素
+                */
 
                 ArrayList<Integer> r = CollectionUtils.reform(s);
 
                 for (int n1 = 0; n1 < n; n1++) {
-                            /*
-                            lisoverPost存放的是前置子集的集合[[][][][][]]
-                             */
+                    /*
+                    lisEndPost存放的是前置子集的集合[[][][][][]]
+                    */
                     lisEndPost.addAll(Post.get(r.get(n1)));
                     lisEndPre.addAll(Pre.get(r.get(n1)));
                 }
                 List<Integer> Pos = CollectionUtils.reduceRepeat(lisEndPost);
                 List<Integer> Pr = CollectionUtils.reduceRepeat(lisEndPre);
-                if (CollectionUtils.isSubset(Pr, Pos) == true) {
-
+                if (CollectionUtils.isRealSubset(Pr, Pos) == true) {
                     lisEnd.add(r);
                 }
                 lisEndPost.clear();
@@ -121,6 +122,7 @@ public class FindSimphon {
             lisEndPre.clear();
         }
         relis.removeAll(end);
+
         for (ArrayList<Integer> list : relis) {
             for (int serial = 0; serial < list.size(); serial++) {
                 list.set(serial, list.get(serial) + 1);

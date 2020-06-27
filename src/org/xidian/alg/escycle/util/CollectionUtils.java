@@ -80,6 +80,26 @@ public class CollectionUtils {
     }
 
     /**
+     * 如果arr2是arr1的真子集则返回true
+     *
+     * @param arr1
+     * @param arr2
+     * @param <T>
+     * @return
+     */
+    public static <T> boolean isRealSubset(List<T> arr1, List<T> arr2) {
+        if (arr2.size() > arr1.size()) {
+            return false;
+        }
+        if (arr1.containsAll(arr2)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    /**
      * 去除集合中重复的元素
      *
      * @param a

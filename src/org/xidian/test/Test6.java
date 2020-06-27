@@ -4,16 +4,16 @@ import java.util.Scanner;
 import java.util.TreeSet;
 
 public class Test6 {
-        public static void main(String[] args){
-                //输入一个字符串
-                System.out.print("请输入一个字符串：");
-                @SuppressWarnings("resource")
-				Scanner sc=new Scanner(System.in);
-                String str=sc.nextLine();
-                //判断输入的字符串中是否有重复字符
-                if(judge(str)){
-                        //调用输出方法
-                        show(str);                
+    public static void main(String[] args) {
+        //输入一个字符串
+        System.out.print("请输入一个字符串：");
+        @SuppressWarnings("resource")
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        //判断输入的字符串中是否有重复字符
+        if (judge(str)) {
+            //调用输出方法
+            show(str);
                 }else{
                         System.out.println("您输入的字符串有重复字符");
                 }

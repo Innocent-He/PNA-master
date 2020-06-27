@@ -2,6 +2,7 @@ package org.xidian.test;
 
 import org.xidian.alg.escycle.es.algorithm.RepeatScreen;
 import org.junit.Test;
+import org.xidian.alg.escycle.util.CollectionUtils;
 
 import java.io.IOException;
 import java.util.*;
@@ -17,17 +18,18 @@ public class TestAll {
         List<String> s1 = new ArrayList<>();
         List<String> s2 = new ArrayList<>();
         s1.add("1");
+        s1.add("1");
+        s1.add("2");
         s1.add("2");
         s1.add("3");
-        s2.add("4");
+
+
+        s2.add("1");
+        s2.add("2");
         s2.add("3");
         s2.add("3");
-        s2.add("6");
-        s2.add("5");
-        s2.add("6");
-        s2.add("6");
-        List<String> screen = RepeatScreen.screen(s2);
-        System.out.println(screen);
+        System.out.println(CollectionUtils.reduceRepeat(s1));
+        System.out.println(CollectionUtils.isSubset(s1, s2));
 
 
     }

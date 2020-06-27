@@ -135,8 +135,8 @@ public class MenuListener implements ActionListener {
         } else if (actionEvent.getSource() == ESCycleButton) {
             try {
                 String graphResult = new ReachabilityGraphAlgorithm().createReachabilityGraph(null, 0);
-                mainPanel.setText(graphResult);
-                Entrance.go();
+                String es = Entrance.go();
+                mainPanel.setText(graphResult + es);
             } catch (CloneNotSupportedException e) {
                 JOptionPane.showMessageDialog(null, UIContants.UI_ANALYSIS_FAILURE);
                 return;
@@ -145,7 +145,6 @@ public class MenuListener implements ActionListener {
         } else {
             JOptionPane.showMessageDialog(null, UIContants.UI_IN_DEVELOPMENT);
         }
-//	    return;
 	}
 
 }
