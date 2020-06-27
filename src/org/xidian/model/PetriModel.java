@@ -2,21 +2,22 @@ package org.xidian.model;
 
 /**
  * petri net 数学模型
+ *
  * @author HanChun
  * @version 1.0 2016-5-16
  */
 public class PetriModel {
-	//变迁到库所的弧权值
-	public static Matrix preMatrix; //前置矩阵
-	//库所到变迁弧弧权值
-	public static Matrix posMatrix; //后置矩阵
-	public static Transition transition; //变迁
-	public static Marking ininmarking; //初始marking
-	public static int transCount, placesCount;
-	
-	public PetriModel() {
-		
-	}
+    //变迁到库所的弧权值,[place][tran]
+    public static Matrix preMatrix; //前置矩阵
+    //库所到变迁弧弧权值
+    public static Matrix posMatrix; //后置矩阵
+    public static Transition transition; //变迁
+    public static Marking ininmarking; //初始marking
+    public static int transCount, placesCount;
+
+    public PetriModel() {
+
+    }
 	
 	/**
 	 * @param preMatrix

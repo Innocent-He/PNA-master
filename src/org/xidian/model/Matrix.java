@@ -86,26 +86,38 @@ public class Matrix {
 			matrix[i][j] = value;
 		}
 	}
-	
-	/**
-	 * 得到矩阵中某个值
-	 * @param i
-	 * @param j
-	 * @return
-	 */
-	public int getValue(int i, int j) {
-		return this.matrix[i][j];
-	}
-	
-	/**
-	 * 修改矩阵中的值
-	 * @param source
-	 * @param destination
-	 * @return 总共修改个数
-	 */
-	public static int reviseValue(int[][] matrix, int source, int destination) {
-		int count = 0;
-		if (matrix != null && matrix.length > 0){
+
+    /**
+     * 得到矩阵中某个值
+     *
+     * @param i
+     * @param j
+     * @return
+     */
+    public int getValue(int i, int j) {
+        return this.matrix[i][j];
+    }
+
+    /**
+     * 得到某个库所的所有后置变迁的弧权值
+     *
+     * @param i
+     * @return
+     */
+    public int[] getValues(int i) {
+        return this.matrix[i];
+    }
+
+    /**
+     * 修改矩阵中的值
+     *
+     * @param source
+     * @param destination
+     * @return 总共修改个数
+     */
+    public static int reviseValue(int[][] matrix, int source, int destination) {
+        int count = 0;
+        if (matrix != null && matrix.length > 0) {
 			for(int i = 0; i < matrix.length; i++) {
 				if ( matrix[i] != null &&  matrix[i].length > 0){
 					for(int j = 0; j< matrix[i].length; j++) {

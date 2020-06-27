@@ -6,38 +6,40 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import org.xidian.alg.escycle.es.graphFind.Entrance;
 import org.xidian.alg.*;
 
 /**
  * 菜单按钮监听类
  * @author HanChun wss LP
  */
-public class MenuListener implements ActionListener{
-	int i = 0;
-	int j = 0;
-	String UCtemp;
-	String Ctemp;
+public class MenuListener implements ActionListener {
+    int i = 0;
+    int j = 0;
+    String UCtemp;
+    String Ctemp;
 
-	private JButton basicPropertyButton, reachabilityGraphButton, localReachabilityGraphButton,
-			pathButton, siphonAnalysisButton, inequationButton,robustButton,uncontrollableandunobservableButton,unobservableReachabilityButton,unControllableReachabilityGraphButton,StepPredictButton,ControlStepPredictButton;
+    private JButton basicPropertyButton, reachabilityGraphButton, localReachabilityGraphButton,
+            pathButton, siphonAnalysisButton, inequationButton, robustButton, uncontrollableandunobservableButton, unobservableReachabilityButton, unControllableReachabilityGraphButton, StepPredictButton, ControlStepPredictButton, ESCycleButton;
 
-	protected static MainPanel mainPanel;
+    protected static MainPanel mainPanel;
 
-	public MenuListener(JButton basicPropertyButton, JButton reachabilityGraphButton,JButton localReachabilityGraphButton, JButton pathButton, JButton siphonAnalysisButton, JButton inequationButton,JButton unControllableReachabilityGraphButton,JButton unobservableReachabilityButton,JButton uncontrollableandunobservableButton,JButton robustButton,JButton StepPredictButton,JButton ControlStepPredictButton) {
-		this.basicPropertyButton = basicPropertyButton;
-		this.reachabilityGraphButton = reachabilityGraphButton;
-		this.localReachabilityGraphButton = localReachabilityGraphButton;
-		this.pathButton = pathButton;
-		this.siphonAnalysisButton = siphonAnalysisButton;
-		this.inequationButton = inequationButton;
-		this.unControllableReachabilityGraphButton = unControllableReachabilityGraphButton;
-		this.unobservableReachabilityButton = unobservableReachabilityButton;
-		this.uncontrollableandunobservableButton = uncontrollableandunobservableButton;
-		this.robustButton = robustButton;
-		this.StepPredictButton = StepPredictButton;
-		this.ControlStepPredictButton = ControlStepPredictButton;
-		mainPanel = MainPanel.getInstance();
-	}
+    public MenuListener(JButton basicPropertyButton, JButton reachabilityGraphButton, JButton localReachabilityGraphButton, JButton pathButton, JButton siphonAnalysisButton, JButton inequationButton, JButton unControllableReachabilityGraphButton, JButton unobservableReachabilityButton, JButton uncontrollableandunobservableButton, JButton robustButton, JButton StepPredictButton, JButton ControlStepPredictButton, JButton ESCycleButton) {
+        this.basicPropertyButton = basicPropertyButton;
+        this.reachabilityGraphButton = reachabilityGraphButton;
+        this.localReachabilityGraphButton = localReachabilityGraphButton;
+        this.pathButton = pathButton;
+        this.siphonAnalysisButton = siphonAnalysisButton;
+        this.inequationButton = inequationButton;
+        this.unControllableReachabilityGraphButton = unControllableReachabilityGraphButton;
+        this.unobservableReachabilityButton = unobservableReachabilityButton;
+        this.uncontrollableandunobservableButton = uncontrollableandunobservableButton;
+        this.robustButton = robustButton;
+        this.StepPredictButton = StepPredictButton;
+        this.ControlStepPredictButton = ControlStepPredictButton;
+        this.ESCycleButton = ESCycleButton;
+        mainPanel = MainPanel.getInstance();
+    }
 
 	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
@@ -113,26 +115,36 @@ public class MenuListener implements ActionListener{
 				return;
 			}
 			return;
-		}else if(actionEvent.getSource() == ControlStepPredictButton){
-			try {
-				if(j==0){
-					String result = ControlStepPredict.calculateCritical();
-					mainPanel.setText(result);
-					Ctemp = result;
-					j++;
-				}
-				if(j>0){
-					mainPanel.setText(Ctemp);
-				}
+        }else if(actionEvent.getSource() == ControlStepPredictButton){
+            try {
+                if(j==0){
+                    String result = ControlStepPredict.calculateCritical();
+                    mainPanel.setText(result);
+                    Ctemp = result;
+                    j++;
+                }
+                if (j > 0) {
+                    mainPanel.setText(Ctemp);
+                }
 
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null,UIContants.UI_ANALYSIS_FAILURE);
-				return;
-			}
-			return;
-		}else {
-			JOptionPane.showMessageDialog(null, UIContants.UI_IN_DEVELOPMENT);
-		}
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, UIContants.UI_ANALYSIS_FAILURE);
+                return;
+            }
+            return;
+        } else if (actionEvent.getSource() == ESCycleButton) {
+            try {
+                String graphResult = new ReachabilityGraphAlgorithm().createReachabilityGraph(null, 0);
+                mainPanel.setText(graphResult);
+                Entrance.go();
+            } catch (CloneNotSupportedException e) {
+                JOptionPane.showMessageDialog(null, UIContants.UI_ANALYSIS_FAILURE);
+                return;
+            }
+            return;
+        } else {
+            JOptionPane.showMessageDialog(null, UIContants.UI_IN_DEVELOPMENT);
+        }
 //	    return;
 	}
 

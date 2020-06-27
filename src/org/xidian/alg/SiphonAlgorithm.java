@@ -1,5 +1,6 @@
 package org.xidian.alg;
 
+import java.util.Arrays;
 import java.util.Vector;
 
 import org.xidian.model.Marking;
@@ -36,6 +37,9 @@ public class SiphonAlgorithm extends PetriModel {
                         new PNMatrix(posMatrix.getMatrix())),
                 new SetOfPlaces(placesCount));
         output += toString(siphons);
+        boolean[] placePostSet = new PetriNet(new PetriNet(new PNMatrix(preMatrix.getMatrix()),
+                new PNMatrix(posMatrix.getMatrix()))).getPlacePostSet(1);
+
 
         output += "\nMinimal Traps\n";
         // now, compute traps switching forwards and backwards incidence matrices
@@ -44,6 +48,18 @@ public class SiphonAlgorithm extends PetriModel {
                         new PNMatrix(preMatrix.getMatrix())),
                 new SetOfPlaces(placesCount));
         output += toString(traps);
+        return output;
+    }
+
+    //用于获取最小信标传递给可达图
+    public String getMinimalSiphons() {
+        String output = "";
+        // compute siphons
+        Vector<boolean[]> siphons = findAllMinimalSiphons(
+                new PetriNet(new PNMatrix(preMatrix.getMatrix()),
+                        new PNMatrix(posMatrix.getMatrix())),
+                new SetOfPlaces(placesCount));
+        output += toString(siphons);
         return output;
     }
 
@@ -341,18 +357,16 @@ public class SiphonAlgorithm extends PetriModel {
      * reduceNet()
      * Simplifies a given PetriNet G discarding all places not in Ptilde and the
      * arcs connected with them.
-     *
      * @param G      A Petri Net
      * @param Ptilde A set of places
      * @returns A simplified Petri Net
      */
     private PetriNet reduceNet(final PetriNet G, final boolean[] Ptilde) {
-        PetriNet Gtilde = new PetriNet(G); // result
-
+        PetriNet Gtilde = new PetriNet(G);
+        // result
         int transitionCount = G.T.size();
         boolean[] transitionPreSet;
         boolean[] transitionPostSet;
-
         // for each transition in T, check if it can be discarded
         for (int transition = 0; transition < transitionCount; transition++) {
             if (G.T.contains(transition)) {
@@ -483,6 +497,7 @@ public class SiphonAlgorithm extends PetriModel {
                 result[i] = (column[i] > 0);
             }
             return result;
+
         }
 
 

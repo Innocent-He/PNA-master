@@ -7,6 +7,7 @@ import java.util.*;
 //import org.jgrapht.alg.AllDirectedPaths;
 //import org.jgrapht.alg.CycleDetector;
 //import org.jgrapht.alg.DijkstraShortestPath;
+import org.xidian.alg.escycle.es.algorithm.FindDeadTrans;
 import org.jgrapht.graph.DirectedPseudograph;
 import org.xidian.model.GraphModel;
 import org.xidian.model.Marking;
@@ -14,7 +15,6 @@ import org.xidian.model.Matrix;
 import org.xidian.model.PetriModel;
 import org.xidian.model.StateNode;
 import org.xidian.model.Transition;
-import org.xidian.utils.LoadModelUtil;
 import org.xidian.utils.PrintUtil;
 
 /**
@@ -36,9 +36,11 @@ public class ReachabilityGraphAlgorithm extends BaseData {
     //已发现状态集合，key表示marking的hashcode值，用作判断状态已经发生过
     public static Map<Integer, StateNode> preStatesMap;
     public static int statesAmout; //记录状态总数
+
     /**
      * 自定义方式生成可达图 (可局部)
-     *代表PN网的初始标识状态
+     * 代表PN网的初始标识状态
+     *
      * @param initNode 自定义初始marking
      * @param step     步长, 为0表示不限制步长，其他表示一次分析最远步长
      * @throws CloneNotSupportedException
@@ -92,6 +94,9 @@ public class ReachabilityGraphAlgorithm extends BaseData {
                     + currentState + "\n");
 //			System.out.println("------------------------"+currentState.getStateNo());
             canFire = getEnabledTrans(currentState);
+
+            //
+            FindDeadTrans.allTransStatus.put(currentState.getStateNo(), canFire);
             for (int i = 0; i < canFire.length; i++) {
                 if (canFire[i]) {
                     nextTrans.push(i);
@@ -118,6 +123,8 @@ public class ReachabilityGraphAlgorithm extends BaseData {
                 //得到死锁状态
                 deadstate.add(currentState.toString().trim());
                 deadlockStates.add(currentState);
+                ls.add(currentState.getStateNo());
+                adjlist.add(ls);
             } else {
                 while (!nextTrans.isEmpty()) {
 
@@ -165,6 +172,7 @@ public class ReachabilityGraphAlgorithm extends BaseData {
             }
         }
 
+
         //到这里说明BFS已经结束，所有状态已经得到
 //		System.out.println(adjlist);
         //可达图的数量
@@ -184,7 +192,9 @@ public class ReachabilityGraphAlgorithm extends BaseData {
 
         return resultStr.toString();
         //System.out.println(resultStr.toString());	//for debug
+
     }
+
 
     /**
      * see createReachabilityGraph(),该方法在createReachabilityGraph()上面做了优化（之所以不在上面直接改，是为了保证基础版的足够简单）
@@ -212,7 +222,9 @@ public class ReachabilityGraphAlgorithm extends BaseData {
             currentState = stateQueue.poll();//每次取出队列中最前面的状态作为当前状态（注意该状态可能不是新状态）
             canFire = getEnabledTrans(currentState);
             for (int i = 0; i < canFire.length; i++) {
-                if (canFire[i]) nextTrans.push(i);
+                if (canFire[i]) {
+                    nextTrans.push(i);
+                }
             }
             //死锁状态
             if (nextTrans.isEmpty()) {
@@ -385,6 +397,7 @@ public class ReachabilityGraphAlgorithm extends BaseData {
     /**
      * 得到上一层或者上一层非0元素
      * 0开始下标！！
+     *
      * @param ifFoward
      * @return
      */

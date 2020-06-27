@@ -201,27 +201,30 @@ public class UIContants {
 	public final static String UI_UNOBSERVABLE_ANALYSIS = "Unobserve";
 	/**
 	 * 主界面工具栏-含有不可控变迁和不可观变迁分析按钮名称
-	 */
-	public final static String UI_UNCONTROLLABLEANDUNOBSERVABLE_ANALYSIS = "UncontrolAndUnobserve";
-	/**
-	 * 主界面工具栏-含有不可靠资源分析按钮名称
-	 */
-	public final static String UI_ROBUST_ANALYSIS = "RobustAnalysis";
-	
-	public final static String UI_STEPPREDICT_ANALYSIS = "UnControlStepPredict";	
-	
-	public final static String UI_CONTROLSTEPPREDICT_ANALYSIS = "ControlStepPredict";
-	
-	/**
-	 * 确定
-	 */
-	public final static String CONFIRM = "Confirm";
-	/**
-	 * 取消
-	 */
-	public final static String CANCEL = "Cancel";
-	/**
-	 * 错误提示-请输入分析步长！
+     */
+    public final static String UI_UNCONTROLLABLEANDUNOBSERVABLE_ANALYSIS = "UncontrolAndUnobserve";
+    /**
+     * 主界面工具栏-含有不可靠资源分析按钮名称
+     */
+    public final static String UI_ROBUST_ANALYSIS = "RobustAnalysis";
+
+    public final static String UI_STEPPREDICT_ANALYSIS = "UnControlStepPredict";
+
+    public final static String UI_CONTROLSTEPPREDICT_ANALYSIS = "ControlStepPredict";
+    /**
+     * 主界面工具栏，对Es循环等待环路的分析按钮名称
+     */
+    public final static String UI_ES_CYCLE_ANALYSIS = "ES-Cycle";
+    /**
+     * 确定
+     */
+    public final static String CONFIRM = "Confirm";
+    /**
+     * 取消
+     */
+    public final static String CANCEL = "Cancel";
+    /**
+     * 错误提示-请输入分析步长！
 	 */
 	public final static String UI_NO_IMPORT_PATH_ERROR = "Please enter the analysis step！";
 	/**
